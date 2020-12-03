@@ -1,4 +1,4 @@
-# flutter_app_sample3
+# Sample: Native_Android View In Flutter
 
 A new Flutter application.
 
