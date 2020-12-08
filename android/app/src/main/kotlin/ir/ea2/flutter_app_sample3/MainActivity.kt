@@ -7,22 +7,34 @@ import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugins.GeneratedPluginRegistrant
 
-class MainActivity() : FlutterActivity() {
+
+
+
+
+class MainActivity: io.flutter.embedding.android.FlutterActivity() {
     companion object {
         const val CHANNEL = "ir.ea2.flutter_app_sample3"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         GeneratedPluginRegistrant.registerWith(FlutterEngine(this))
-        MethodChannel(flutterView, CHANNEL).setMethodCallHandler { call, result ->
+
+        MethodChannel(flutterEngine!!.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->
             if (call.method == "showNativeView") {
                 val intent = Intent(this, NativeViewActivity::class.java)
                 startActivity(intent)
                 result.success(true)
-            } else {
-                result.notImplemented()
             }
+
         }
+
+
+
     }
+
+
+
 }
+
