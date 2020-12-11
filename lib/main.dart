@@ -27,13 +27,28 @@ class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   List<dynamic> phoneNumbersList = [];
   String apiToken;
+
+
   @override
   void initState() {
-    super.initState();
+    WidgetsBinding.instance.addObserver(this);
     MyHomePage.platform.setMethodCallHandler(_handleMethod);
+    super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print("{{    {${state}}    }");
+  }
+
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override
